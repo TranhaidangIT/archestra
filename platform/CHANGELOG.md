@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.35](https://github.com/archestra-ai/archestra/compare/platform-v1.2.34...platform-v1.2.35) (2026-05-07)
+
+
+### Features
+
+* support linked downstream IdPs for MCP auth ([#4414](https://github.com/archestra-ai/archestra/issues/4414)) ([9699eb8](https://github.com/archestra-ai/archestra/commit/9699eb8552e7390d129a73ad93186283b91a8b1f))
+
+
+### Bug Fixes
+
+* scheduled task admin run history access ([#4427](https://github.com/archestra-ai/archestra/issues/4427)) ([655760e](https://github.com/archestra-ai/archestra/commit/655760e4a57bff6719cda1b4f560f2c5165b6b0c))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump ip-address and express-rate-limit in /platform/e2e-tests/test-mcp-servers/mcp-server-jwks-keycloak ([#4413](https://github.com/archestra-ai/archestra/issues/4413)) ([0dd94f4](https://github.com/archestra-ai/archestra/commit/0dd94f422f5b477b41fe13737cd05486f7854aed))
+
 ## [1.2.34](https://github.com/archestra-ai/archestra/compare/platform-v1.2.33...platform-v1.2.34) (2026-05-06)
 
 
