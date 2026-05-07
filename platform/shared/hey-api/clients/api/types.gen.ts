@@ -46935,6 +46935,7 @@ export type GetIdentityProvidersResponses = {
         organizationId: string | null;
         domain: string;
         domainVerified: boolean | null;
+        ssoLoginEnabled: boolean;
     }>;
 };
 
@@ -47063,6 +47064,7 @@ export type CreateIdentityProviderData = {
         providerId: string;
         domain: string;
         domainVerified?: boolean | null;
+        ssoLoginEnabled?: boolean;
     };
     path?: never;
     query?: never;
@@ -47262,6 +47264,7 @@ export type CreateIdentityProviderResponses = {
         organizationId: string | null;
         domain: string;
         domainVerified: boolean | null;
+        ssoLoginEnabled: boolean;
     };
 };
 
@@ -47637,6 +47640,7 @@ export type GetIdentityProviderResponses = {
         organizationId: string | null;
         domain: string;
         domainVerified: boolean | null;
+        ssoLoginEnabled: boolean;
     };
 };
 
@@ -47764,6 +47768,7 @@ export type UpdateIdentityProviderData = {
         providerId?: string;
         domain?: string;
         domainVerified?: boolean | null;
+        ssoLoginEnabled?: boolean;
     };
     path: {
         id: string;
@@ -47965,6 +47970,7 @@ export type UpdateIdentityProviderResponses = {
         organizationId: string | null;
         domain: string;
         domainVerified: boolean | null;
+        ssoLoginEnabled: boolean;
     };
 };
 

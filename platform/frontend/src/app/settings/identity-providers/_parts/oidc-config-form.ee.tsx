@@ -51,6 +51,7 @@ import {
   inferEnterpriseExchangeType,
 } from "./identity-provider-form.utils";
 import { RoleMappingForm } from "./role-mapping-form.ee";
+import { SsoLoginEnabledField } from "./sso-login-enabled-field.ee";
 import { TeamSyncConfigForm } from "./team-sync-config-form.ee";
 
 const SUBJECT_TOKEN_LABEL_BY_TYPE = {
@@ -78,7 +79,6 @@ export function OidcConfigForm({
   const issuer = form.watch("issuer") || "";
   const providerId = form.watch("providerId") || "";
   const showAllowedEmailDomains = providerId === "Google";
-
   const inferredEnterpriseExchangeType = inferEnterpriseExchangeType({
     issuer,
     providerId,
@@ -146,6 +146,8 @@ export function OidcConfigForm({
             </FormItem>
           )}
         />
+
+        <SsoLoginEnabledField form={form} />
 
         {showAllowedEmailDomains && (
           <FormField
