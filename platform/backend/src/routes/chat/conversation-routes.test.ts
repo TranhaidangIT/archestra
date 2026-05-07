@@ -168,6 +168,73 @@ describe("chat conversation and message routes", () => {
     });
   });
 
+  test("forks an accessible scheduled run conversation for the current user", async ({
+    makeAgent,
+    makeMember,
+    makeScheduleTrigger,
+    makeScheduleTriggerRun,
+    makeUser,
+  }) => {
+    const owner = await makeUser();
+    await makeMember(owner.id, organizationId, { role: "member" });
+    const agent = await makeAgent({
+      organizationId,
+      authorId: owner.id,
+      scope: "org",
+    });
+    const trigger = await makeScheduleTrigger({
+      organizationId,
+      actorUserId: owner.id,
+      agentId: agent.id,
+    });
+    const run = await makeScheduleTriggerRun(trigger.id, {
+      organizationId,
+      runKind: "due",
+    });
+    const conversation = await ConversationModel.create({
+      userId: owner.id,
+      organizationId,
+      agentId: agent.id,
+      selectedModel: "gpt-4o",
+      selectedProvider: "openai",
+    });
+    await MessageModel.create({
+      conversationId: conversation.id,
+      role: "assistant",
+      content: {
+        id: "message-1",
+        role: "assistant",
+        parts: [{ type: "text", text: "Scheduled run complete" }],
+      },
+    });
+    await ScheduleTriggerRunModel.setChatConversationId(
+      run.id,
+      conversation.id,
+    );
+
+    const response = await app.inject({
+      method: "POST",
+      url: `/api/chat/conversations/${conversation.id}/fork`,
+      payload: {
+        agentId: agent.id,
+      },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({
+      agentId: agent.id,
+      selectedModel: "gpt-4o",
+      selectedProvider: "openai",
+      userId: currentUser.id,
+      messages: [
+        expect.objectContaining({
+          id: expect.any(String),
+          parts: [{ type: "text", text: "Scheduled run complete" }],
+        }),
+      ],
+    });
+  });
+
   test("returns 404 when non-admin member opens another user's scheduled run conversation", async ({
     makeAgent,
     makeMember,
